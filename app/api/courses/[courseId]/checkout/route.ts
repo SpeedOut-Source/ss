@@ -79,6 +79,9 @@ export async function POST(
 
 		const success_url = `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?success=1`
 
+		// purchage course
+		await db.purchase.create({data: {userId: user.id, courseId: course.id}})
+
 		// const session = await stripe.checkout.sessions.create({
 		//   customer: stripeCustomer.stripeCustomerId,
 		//   line_items,
