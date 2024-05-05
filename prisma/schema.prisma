@@ -67,11 +67,43 @@ model Chapter {
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
+  lessons Lesson[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([courseId])
+}
+
+model Lesson {
+  id String @id @default(uuid())
+  chapterId String
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  type LessonType @default(TEXT_CONTENT)
+  textContent String?
+  quizes Quiz?
+  order Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([chapterId])
+}
+
+enum LessonType {
+  QUIZ
+  TEXT_CONTENT
+}
+
+model Quiz {
+  id String @id @default(uuid())
+  lesson Lesson @relation(fields: [id], references: [id], onDelete: Cascade)
+  questions String
+  correctAnswer String
+  explanation String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model MuxData {
