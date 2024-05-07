@@ -32,12 +32,14 @@ export interface QuizFormProps {
   initialData?: Quiz;
   courseId: string;
   chapterId: string;
+  toggleEdit?: () => void;
 }
 
 export const QuizLessonForm = ({
   initialData,
   courseId,
   chapterId,
+  toggleEdit,
 }: QuizFormProps) => {
   const router = useRouter();
 
@@ -55,7 +57,9 @@ export const QuizLessonForm = ({
         `/api/courses/${courseId}/chapters/${chapterId}/lesson/quiz`,
         values
       );
+
       toast.success("Quiz creater");
+      toggleEdit && toggleEdit();
       router.refresh();
     } catch {
       toast.error("Something went wrong");
@@ -153,7 +157,7 @@ export const QuizLessonForm = ({
           />
           <FormField
             control={form.control}
-            name="correctOption"
+            name="correctAnswer"
             render={({ field }) => (
               <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
                 <FormLabel>Correct Answer</FormLabel>
@@ -172,7 +176,7 @@ export const QuizLessonForm = ({
           />
           <div className="flex items-center gap-x-2">
             <Button disabled={!isValid || isSubmitting} type="submit">
-              Save
+              {initialData ? "Update" : "Save"}
             </Button>
           </div>
         </form>

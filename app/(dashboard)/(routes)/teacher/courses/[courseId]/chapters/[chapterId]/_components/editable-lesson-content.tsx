@@ -35,6 +35,7 @@ export default function EditableContent({
       )}
       {isEditing && (
         <LessonContentForm
+          toggleEdit={toggleEdit}
           chapterId={chapterId}
           courseId={courseId}
           initialData={initialData}

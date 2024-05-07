@@ -31,7 +31,27 @@ export async function PATCH(
       }
 
       if (data.data.id) {
+        const {
+          correctAnswer: correctOption,
+          option1,
+          option2,
+          option3,
+          option4,
+          question,
+        } = data.data;
         // update data
+        const quiz = await db.quiz.update({
+          where: { id: data.data.id },
+          data: {
+            correctAnswer: correctOption,
+            option1,
+            option2,
+            option3,
+            option4,
+            question,
+          },
+        });
+        return NextResponse.json(quiz);
       } else {
         // create new
         const quizData = data.data;
@@ -41,7 +61,7 @@ export async function PATCH(
             type: LessonType.QUIZ,
             quize: {
               create: {
-                correctAnswer: quizData.correctOption,
+                correctAnswer: quizData.correctAnswer,
                 option1: quizData.option1,
                 option2: quizData.option2,
                 option3: quizData.option3,

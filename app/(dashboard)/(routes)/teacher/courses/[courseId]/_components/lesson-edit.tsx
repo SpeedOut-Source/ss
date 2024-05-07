@@ -37,6 +37,7 @@ export default function LessonEdit({
           chapterId={chapterId}
           courseId={courseId}
           initialData={initialData}
+          toggleEdit={toggleEdit}
         />
       )}
     </div>

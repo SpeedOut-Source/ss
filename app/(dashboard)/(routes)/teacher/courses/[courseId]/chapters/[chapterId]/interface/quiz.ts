@@ -8,6 +8,6 @@ export const quizFormSchema = z.object({
   option3: z.string().min(1),
   option4: z.string().min(1),
   // options: z.array(z.string()).min(2),
-  correctOption: z.coerce.number().nonnegative().int().min(1).max(4),
+  correctAnswer: z.coerce.number().nonnegative().int().min(1).max(4),
   // explanation: z.string().optional(),
 });

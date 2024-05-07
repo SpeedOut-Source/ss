@@ -27,6 +27,7 @@ export interface LessonContentFormProps {
   };
   courseId: string;
   chapterId: string;
+  toggleEdit?: () => void;
 }
 
 const formSchema = z.object({
@@ -38,6 +39,7 @@ export const LessonContentForm = ({
   initialData,
   courseId,
   chapterId,
+  toggleEdit,
 }: LessonContentFormProps) => {
   const router = useRouter();
 
@@ -58,7 +60,7 @@ export const LessonContentForm = ({
         values
       );
       toast.success("Chapter updated");
-      // toggleEdit();
+      toggleEdit && toggleEdit();
       router.refresh();
     } catch {
       toast.error("Something went wrong");
@@ -87,7 +89,7 @@ export const LessonContentForm = ({
           />
           <div className="flex items-center gap-x-2">
             <Button disabled={!isValid || isSubmitting} type="submit">
-              Save
+              {initialData ? "Update" : "Save"}
             </Button>
           </div>
         </form>
