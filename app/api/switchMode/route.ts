@@ -3,9 +3,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 
-export async function PATCH(
-  req: Request
-) {
+export async function PATCH(req: Request) {
   try {
     const { userId } = auth();
 
@@ -24,7 +22,7 @@ export async function PATCH(
       where: { userId },
       create: data,
       update: data,
-  });
+    });
 
     return NextResponse.json(userSettings);
   } catch (error) {
