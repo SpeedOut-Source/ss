@@ -17,7 +17,7 @@ export function QuizLesson({ quiz }: { quiz: Quiz }) {
       </div>
       <RadioGroup defaultValue="option-one">
         {options.map((option, index) => (
-          <div className="flex items-center space-x-2">
+          <div key={index} className="flex items-center space-x-2">
             <RadioGroupItem value={option} id={option} />
             <Label htmlFor="option-one">{option}</Label>
           </div>

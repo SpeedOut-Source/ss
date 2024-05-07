@@ -26,6 +26,7 @@ export default async function Lessons({ courseId, chapterId }: LessonsProps) {
         if (lesson.quize)
           return (
             <LessonEdit
+              key={lesson.id}
               chapterId={chapterId}
               courseId={courseId}
               initialData={lesson.quize}
@@ -35,6 +36,7 @@ export default async function Lessons({ courseId, chapterId }: LessonsProps) {
         if (lesson.textContent) {
           return (
             <EditableContent
+              key={lesson.id}
               chapterId={chapterId}
               courseId={courseId}
               initialData={{ id: lesson.id, textContent: lesson.textContent }}
