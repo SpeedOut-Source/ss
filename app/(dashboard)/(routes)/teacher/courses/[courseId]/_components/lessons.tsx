@@ -3,10 +3,11 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { db } from "@/lib/db";
 import { Quiz } from "@prisma/client";
-import { Pencil } from "lucide-react";
+import { Edit, Pencil } from "lucide-react";
 import React from "react";
 import { QuizLesson } from "./lesson";
 import LessonEdit from "./lesson-edit";
+import EditableContent from "../chapters/[chapterId]/_components/editable-lesson-content";
 
 interface LessonsProps {
   courseId: string;
@@ -30,6 +31,16 @@ export default async function Lessons({ courseId, chapterId }: LessonsProps) {
               initialData={lesson.quize}
             />
           );
+
+        if (lesson.textContent) {
+          return (
+            <EditableContent
+              chapterId={chapterId}
+              courseId={courseId}
+              initialData={{ id: lesson.id, textContent: lesson.textContent }}
+            />
+          );
+        }
       })}
     </div>
   );

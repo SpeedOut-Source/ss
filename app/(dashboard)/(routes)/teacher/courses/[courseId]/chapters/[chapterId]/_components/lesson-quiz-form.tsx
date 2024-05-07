@@ -63,7 +63,12 @@ export const QuizLessonForm = ({
   };
 
   return (
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="mt-6 border bg-slate-200 rounded-md p-4">
+      {!initialData && (
+        <div className="font-medium flex items-center justify-between">
+          Add new Quiz
+        </div>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
           <FormField
