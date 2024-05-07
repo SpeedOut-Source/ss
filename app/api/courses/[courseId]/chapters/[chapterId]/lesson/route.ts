@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 
-export async function PATCH(
+export async function GET(
   req: Request,
   { params }: { params: { courseId: string; chapterId: string } }
 ) {
@@ -25,17 +25,11 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const unpublishedChapter = await db.chapter.update({
-      where: {
-        id: params.chapterId,
-        courseId: params.courseId,
-      },
-      data: {
-        lessons: { create: {} },
-      },
+    const lessons = await db.lesson.findMany({
+      where: { chapterId: params.chapterId },
     });
 
-    return NextResponse.json(unpublishedChapter);
+    return NextResponse.json(lessons);
   } catch (error) {
     console.log("[CHAPTER_UNPUBLISH]", error);
     return new NextResponse("Internal Error", { status: 500 });

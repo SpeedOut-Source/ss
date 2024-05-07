@@ -13,6 +13,7 @@ import { ChapterAccessForm } from "./_components/chapter-access-form";
 import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { ChapterActions } from "./_components/chapter-actions";
 import { QuizLessonForm } from "./_components/lesson-quiz-form";
+import Lessons from "../../_components/lessons";
 
 const ChapterIdPage = async ({
   params,
@@ -122,10 +123,8 @@ const ChapterIdPage = async ({
               chapterId={params.chapterId}
               courseId={params.courseId}
             />
-            <QuizLessonForm
-              chapterId={params.chapterId}
-              courseId={params.courseId}
-            />
+
+            <Lessons courseId={params.courseId} chapterId={params.chapterId} />
           </div>
         </div>
       </div>
