@@ -14,6 +14,7 @@ import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
 import { Actions } from "./_components/actions";
+import { PromptForm } from "./_components/prompt-form";
 
 const CourseIdPage = async ({
   params
@@ -94,6 +95,7 @@ const CourseIdPage = async ({
             isPublished={course.isPublished}
           />
         </div>
+        <PromptForm courseId={course.id} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
           <div>
             <div className="flex items-center gap-x-2">
