@@ -70,7 +70,7 @@ export const QuizLessonForm = ({
     const toastId = toast.loading("Generating Quiz");
     try {
       const quizRes = await axios.patch<QuizSchemaType>(
-        `/api/courses/${courseId}/chapters/${chapterId}/ai`
+        `/api/courses/${courseId}/chapters/${chapterId}/lesson/quiz/ai`
       );
 
       const quiz = quizRes.data;
@@ -105,7 +105,7 @@ export const QuizLessonForm = ({
             control={form.control}
             name="question"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-col   space-y-3 rounded-md border px-4 pt-4">
                 <FormLabel>Question</FormLabel>
                 <FormControl>
                   <Input
@@ -121,7 +121,7 @@ export const QuizLessonForm = ({
             control={form.control}
             name="option1"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-col   space-y-3 rounded-md border px-4 ">
                 <FormLabel>Option 1</FormLabel>
                 <FormControl>
                   <Input
@@ -137,7 +137,8 @@ export const QuizLessonForm = ({
             control={form.control}
             name="option2"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              // <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-col   space-y-3 rounded-md border px-4">
                 <FormLabel>Option 2</FormLabel>
                 <FormControl>
                   <Input
@@ -153,7 +154,8 @@ export const QuizLessonForm = ({
             control={form.control}
             name="option3"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              // <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-col   space-y-3 rounded-md border px-4">
                 <FormLabel>Option 3</FormLabel>
                 <FormControl>
                   <Input
@@ -169,7 +171,8 @@ export const QuizLessonForm = ({
             control={form.control}
             name="option4"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              // <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-col   space-y-3 rounded-md border px-4">
                 <FormLabel>Option 4</FormLabel>
                 <FormControl>
                   <Input
@@ -185,7 +188,8 @@ export const QuizLessonForm = ({
             control={form.control}
             name="correctAnswer"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              // <FormItem className="flex flex-row items-center  space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex flex-col space-y-3 rounded-md border px-4 ">
                 <FormLabel>Correct Answer</FormLabel>
                 <FormControl>
                   <Input

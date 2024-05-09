@@ -67,8 +67,34 @@ export const LessonContentForm = ({
     }
   };
 
+  async function generateQuiz() {
+    const toastId = toast.loading("Generating Text Content");
+    try {
+      const textContentRes = await axios.patch<string>(
+        `/api/courses/${courseId}/chapters/${chapterId}/lesson/ai`
+      );
+
+      const textContent = textContentRes.data;
+
+      form.setValue("textContent", textContent);
+
+      toast.success("Content generated", { id: toastId });
+      router.refresh();
+    } catch {
+      toast.error("Something went wrong", { id: toastId });
+    }
+  }
+
   return (
     <div className="mt-6 border bg-slate-200 rounded-md p-4">
+      {!initialData && (
+        <div className="flex justify-between">
+          <div className="font-medium flex items-center justify-between">
+            Add Content
+          </div>
+          <Button onClick={generateQuiz}>Generate</Button>
+        </div>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
           <FormField
