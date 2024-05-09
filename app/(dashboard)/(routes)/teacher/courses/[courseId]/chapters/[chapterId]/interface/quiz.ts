@@ -11,3 +11,5 @@ export const quizFormSchema = z.object({
   correctAnswer: z.coerce.number().nonnegative().int().min(1).max(4),
   // explanation: z.string().optional(),
 });
+
+export type QuizSchemaType = z.infer<typeof quizFormSchema>;

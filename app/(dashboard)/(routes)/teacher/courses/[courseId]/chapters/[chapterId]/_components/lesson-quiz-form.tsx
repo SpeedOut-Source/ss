@@ -25,7 +25,7 @@ import { Editor } from "@/components/editor";
 import { Preview } from "@/components/preview";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { quizFormSchema } from "../interface/quiz";
+import { QuizSchemaType, quizFormSchema } from "../interface/quiz";
 import { QuizLesson } from "../../../_components/lesson";
 
 export interface QuizFormProps {
@@ -53,7 +53,7 @@ export const QuizLessonForm = ({
   const onSubmit = async (values: z.infer<typeof quizFormSchema>) => {
     // console.log(values);
     try {
-      await axios.patch(
+      const quizRes = await axios.patch(
         `/api/courses/${courseId}/chapters/${chapterId}/lesson/quiz`,
         values
       );
@@ -66,11 +66,37 @@ export const QuizLessonForm = ({
     }
   };
 
+  async function generateQuiz() {
+    const toastId = toast.loading("Generating Quiz");
+    try {
+      const quizRes = await axios.patch<QuizSchemaType>(
+        `/api/courses/${courseId}/chapters/${chapterId}/ai`
+      );
+
+      const quiz = quizRes.data;
+
+      form.setValue("question", quiz.question);
+      form.setValue("option1", quiz.option1);
+      form.setValue("option2", quiz.option2);
+      form.setValue("option3", quiz.option3);
+      form.setValue("option4", quiz.option4);
+      form.setValue("correctAnswer", quiz.correctAnswer);
+
+      toast.success("Quiz generated", { id: toastId });
+      router.refresh();
+    } catch {
+      toast.error("Something went wrong", { id: toastId });
+    }
+  }
+
   return (
     <div className="mt-6 border bg-slate-200 rounded-md p-4">
       {!initialData && (
-        <div className="font-medium flex items-center justify-between">
-          Add new Quiz
+        <div className="flex justify-between">
+          <div className="font-medium flex items-center justify-between">
+            Add new Quiz
+          </div>
+          <Button onClick={generateQuiz}>Generate</Button>
         </div>
       )}
       <Form {...form}>
