@@ -26,7 +26,7 @@ import { Preview } from "@/components/preview";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { QuizSchemaType, quizFormSchema } from "../interface/quiz";
-import { QuizLesson } from "../../../_components/lesson";
+import { QuizLesson } from "../../../../../../../../../components/content/quiz-content";
 
 export interface QuizFormProps {
   initialData?: Quiz;

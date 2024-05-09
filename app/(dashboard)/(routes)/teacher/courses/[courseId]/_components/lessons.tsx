@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { Quiz } from "@prisma/client";
 import { Edit, Pencil } from "lucide-react";
 import React from "react";
-import { QuizLesson } from "./lesson";
+import { QuizLesson } from "../../../../../../../components/content/quiz-content";
 import LessonEdit from "./lesson-edit";
 import EditableContent from "../chapters/[chapterId]/_components/editable-lesson-content";
 

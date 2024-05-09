@@ -6,6 +6,7 @@ import {
   LessonContentForm,
   LessonContentFormProps,
 } from "./lesson-content-form";
+import { ShowContent } from "@/components/content/text-content";
 
 export default function EditableContent({
   chapterId,
@@ -43,8 +44,4 @@ export default function EditableContent({
       )}
     </div>
   );
-}
-
-function ShowContent({ content }: { content: string }) {
-  return <p className="text-sm mt-2">{content}</p>;
 }

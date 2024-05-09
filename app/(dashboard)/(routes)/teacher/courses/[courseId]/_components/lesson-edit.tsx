@@ -6,7 +6,7 @@ import {
 } from "../chapters/[chapterId]/_components/lesson-quiz-form";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
-import { QuizLesson } from "./lesson";
+import { QuizLesson } from "../../../../../../../components/content/quiz-content";
 
 export default function LessonEdit({
   initialData,
