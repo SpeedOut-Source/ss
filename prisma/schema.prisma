@@ -58,6 +58,7 @@ model Chapter {
   description String? @db.Text
   videoUrl    String? @db.Text
   position    Int
+
   isPublished Boolean @default(false)
   isFree      Boolean @default(false)
 
@@ -67,7 +68,7 @@ model Chapter {
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
-  lessons      Lesson[]
+  topics       Topic[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -75,19 +76,36 @@ model Chapter {
   @@index([courseId])
 }
 
+model Topic {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+
+  Order Int
+
+  lessons Lesson[]
+
+  chapterId String
+  Chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@index([chapterId])
+}
+
 model Lesson {
-  id          String     @id @default(uuid())
-  chapterId   String
-  chapter     Chapter    @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+
   type        LessonType @default(TEXT_CONTENT)
   textContent String?
   quize       Quiz?
-  order       Int        @default(1)
+  order       Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([chapterId])
+  topicId String
+  Topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@index([topicId])
 }
 
 enum LessonType {

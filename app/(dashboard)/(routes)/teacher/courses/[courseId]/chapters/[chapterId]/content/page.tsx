@@ -3,6 +3,7 @@ import React from "react";
 import AddLesson from "../_components/add-lesson";
 import Lessons from "../../../_components/lessons";
 import { LayoutDashboard } from "lucide-react";
+import GenerateTopic from "./_components/generate-topic";
 
 export default function page({
   params,
@@ -18,6 +19,7 @@ export default function page({
         </div>
         <Lessons courseId={params.courseId} chapterId={params.chapterId} />
         <AddLesson chapterId={params.chapterId} courseId={params.courseId} />
+        <GenerateTopic />
       </div>
     </div>
   );
