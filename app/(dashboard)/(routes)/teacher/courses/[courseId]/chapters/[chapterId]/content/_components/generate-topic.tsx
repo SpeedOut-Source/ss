@@ -4,7 +4,7 @@ import { QuizLesson } from "@/components/content/quiz-content";
 import { ShowContent } from "@/components/content/text-content";
 import { IconBadge } from "@/components/icon-badge";
 import { Button } from "@/components/ui/button";
-import { ContentLesson, QuizLessonType } from "@/lib/type";
+import { ContentLesson, QuizLessonType, TopicType } from "@/lib/type";
 import { Quiz } from "@prisma/client";
 import axios from "axios";
 import { LayoutDashboard } from "lucide-react";
@@ -20,9 +20,7 @@ export default function GenerateTopic() {
   const description =
     "This chapter covers the basics of exceptions in Javascript";
 
-  const [respone, setResponse] = useState<(ContentLesson | QuizLessonType)[]>(
-    []
-  );
+  const [topics, setTopics] = useState<TopicType[]>([]);
 
   let [messages, setMessage] = useState<ChatCompletionMessageParam[]>([
     {
@@ -37,25 +35,22 @@ export default function GenerateTopic() {
     },
     {
       role: "user",
-      content:
-        'Generate the topics and prompts for this chapter in the following json format: [{"topic": "", "description": "", "prompt": ""}, ...]',
+      content: `Generate the topics and title, prompt, description for this chapter in the following json format:{"topics": [{"title": "", "description": "", "prompt": ""}, ...]} \n
+        so that i can parse this return json as {topics:  { title: string; description: string; prompt: string } `,
     },
   ]);
 
   async function getTopics() {
-    const lessonRes = await axios.post(
+    const topicsRes = await axios.post(
       `/api/courses/${courseId}/chapters/${chapterId}/lesson/ai/topics`,
       {
-        messages: [
-          ...messages,
-          {
-            role: "user",
-            content:
-              "I've provided previous functions args so that you can predict which function to call next to gernate lesson.",
-          },
-        ],
+        messages,
       }
     );
+
+    const topics = topicsRes.data as TopicType[];
+    setTopics(topics);
+    console.log(topicsRes);
   }
 
   // useEffect(() => {
@@ -66,14 +61,8 @@ export default function GenerateTopic() {
     <div>
       {/* <Button onClick={getAILessons}>Generate</Button> */}
       <ul className="p-4">
-        {respone.map((res) => (
-          <li className="m-2 bg-slate-200 p-2">
-            {"content" in res ? (
-              <ShowContent content={res.content} />
-            ) : (
-              <QuizLesson quiz={res as Quiz} />
-            )}
-          </li>
+        {topics.map((topic, index) => (
+          <p key={index}>{topic.description}</p>
         ))}
       </ul>
       <button onClick={getTopics}>Generate</button>

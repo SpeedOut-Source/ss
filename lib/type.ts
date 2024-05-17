@@ -11,3 +11,9 @@ export interface QuizLessonType {
 export interface ContentLesson {
   content: string;
 }
+
+export interface TopicType {
+  title: string;
+  description: string;
+  prompt: string;
+}

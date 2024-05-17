@@ -87,8 +87,8 @@ export default function GenerateTopicLesson() {
     <div>
       {/* <Button onClick={getAILessons}>Generate</Button> */}
       <ul className="p-4">
-        {respone.map((res) => (
-          <li className="m-2 bg-slate-200 p-2">
+        {respone.map((res, i) => (
+          <li key={i} className="m-2 bg-slate-200 p-2">
             {"content" in res ? (
               <ShowContent content={res.content} />
             ) : (

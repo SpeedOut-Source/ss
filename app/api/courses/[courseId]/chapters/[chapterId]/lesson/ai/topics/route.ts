@@ -23,7 +23,7 @@ export async function POST(
     const quizes = await getChapterTopics({ messages });
 
     if (quizes) {
-      NextResponse.json(quizes);
+      return NextResponse.json(quizes);
     }
     return new NextResponse("Lesson not found", { status: 404 });
   } catch (error) {

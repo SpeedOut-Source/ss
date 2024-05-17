@@ -28,8 +28,10 @@ export const getChapterTopics = async ({
   const responseMessage = chatCompletion.choices[0].message.content;
 
   if (responseMessage) {
-    const res = JSON.parse(responseMessage) as QuizLessonType[];
-    console.log(res);
-    return res;
+    const res = JSON.parse(responseMessage) as {
+      topics: { title: string; description: string; prompt: string };
+    };
+    // console.log(res);
+    return res.topics;
   }
 };
