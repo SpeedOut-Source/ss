@@ -1,13 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { db } from "@/lib/db";
-import { Quiz } from "@prisma/client";
-import { Edit, Pencil } from "lucide-react";
-import React from "react";
-import { QuizLesson } from "../../../../../../../components/content/quiz-content";
-import LessonEdit from "./lesson-edit";
 import EditableContent from "../chapters/[chapterId]/_components/editable-lesson-content";
+import LessonEdit from "./lesson-edit";
 
 interface LessonsProps {
   courseId: string;
@@ -16,7 +9,7 @@ interface LessonsProps {
 
 export default async function Lessons({ courseId, chapterId }: LessonsProps) {
   const lessons = await db.lesson.findMany({
-    where: { chapterId: chapterId },
+    where: { topicId: "1" },
     include: { quize: true },
   });
 

@@ -107,9 +107,9 @@ const ChapterIdPage = async ({
             </>
           )}
 
-          {purchase && chapter.lessons && (
+          {/* {purchase && chapter.lessons && (
             <CourseContents params={params} lessons={chapter.lessons} />
-          )}
+          )} */}
         </div>
       </div>
     </div>

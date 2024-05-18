@@ -37,7 +37,7 @@ export const getChapter = async ({
         id: chapterId,
         isPublished: true,
       },
-      include: { lessons: { include: { quize: true } } },
+      include: { topics: true },
     });
 
     if (!chapter || !course) {

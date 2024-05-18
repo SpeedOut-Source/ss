@@ -28,7 +28,7 @@ export async function GET(
     }
 
     const lessons = await db.lesson.findMany({
-      where: { chapterId: params.chapterId },
+      where: { topicId: params.chapterId },
     });
 
     return NextResponse.json(lessons);
@@ -85,7 +85,8 @@ export async function PATCH(
         const quizData = data.data;
         const lesson = await db.lesson.create({
           data: {
-            chapterId: params.chapterId,
+            order: 1,
+            topicId: params.chapterId,
             type: LessonType.TEXT_CONTENT,
             textContent: quizData.textContent,
           },

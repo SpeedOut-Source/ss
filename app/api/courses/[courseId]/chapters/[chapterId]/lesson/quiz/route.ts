@@ -57,7 +57,8 @@ export async function PATCH(
         const quizData = data.data;
         const lesson = await db.lesson.create({
           data: {
-            chapterId: params.chapterId,
+            order: 1,
+            topicId: params.chapterId,
             type: LessonType.QUIZ,
             quize: {
               create: {
