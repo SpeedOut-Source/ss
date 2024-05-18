@@ -2,9 +2,12 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { getAIText } from "@/actions/get-ai-text";
+import { getAIText } from "@/actions/ai/get-ai-text";
 
-export async function PATCH(req: Request, { params }: { params: { courseId: string } }) {
+export async function PATCH(
+  req: Request,
+  { params }: { params: { courseId: string } }
+) {
   try {
     const { userId } = auth();
 
@@ -13,9 +16,9 @@ export async function PATCH(req: Request, { params }: { params: { courseId: stri
     }
 
     const { prompt } = await req.json();
-    
+
     const aiTitle = await getAIText(prompt);
-    
+
     if (!aiTitle) {
       return new NextResponse("AI Error", { status: 500 });
     }
@@ -27,11 +30,11 @@ export async function PATCH(req: Request, { params }: { params: { courseId: stri
     const course = await db.course.update({
       where: {
         id: params.courseId,
-        userId
+        userId,
       },
       data: {
-          title: aiTitle
-      }
+        title: aiTitle,
+      },
     });
 
     return NextResponse.json(course);

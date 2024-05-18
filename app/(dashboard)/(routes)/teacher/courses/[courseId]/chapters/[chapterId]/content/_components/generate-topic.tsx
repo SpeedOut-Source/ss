@@ -11,13 +11,22 @@ import { LayoutDashboard } from "lucide-react";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import React, { useEffect, useState } from "react";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 export default function GenerateTopic() {
   const courseId = "courseId";
   const chapterId = "chapterId";
   const params = { courseId, chapterId };
 
-  const chpaterTitle = "Exceptions in Javascript";
-  const description =
+  const chapterName = "Exceptions in Javascript";
+  const chapterDescription =
     "This chapter covers the basics of exceptions in Javascript";
 
   const [topics, setTopics] = useState<TopicType[]>([]);
@@ -30,8 +39,7 @@ export default function GenerateTopic() {
     },
     {
       role: "user",
-      content:
-        "Chapter Name: {chapterName}\n\nChapter Description: {chapterDescription}",
+      content: `Chapter Name: ${chapterName}\n\nChapter Description: ${chapterDescription}`,
     },
     {
       role: "user",
@@ -53,6 +61,15 @@ export default function GenerateTopic() {
     console.log(topicsRes);
   }
 
+  async function saveTopics() {
+    const saveTopics = await axios.post(
+      `/api/courses/${courseId}/chapters/${chapterId}/topic`,
+      {
+        topics,
+      }
+    );
+  }
+
   // useEffect(() => {
   //   if (messages.length < 10) getAILessons();
   // }, [messages]);
@@ -60,12 +77,29 @@ export default function GenerateTopic() {
   return (
     <div>
       {/* <Button onClick={getAILessons}>Generate</Button> */}
-      <ul className="p-4">
+      <div className="">
         {topics.map((topic, index) => (
-          <p key={index}>{topic.description}</p>
+          <TopicCard key={index} topic={topic} />
         ))}
-      </ul>
-      <button onClick={getTopics}>Generate</button>
+      </div>
+      <div className="flex justify-between py-2">
+        <Button onClick={getTopics}>Generate</Button>
+        {topics.length > 0 && <Button>Save</Button>}
+      </div>
     </div>
+  );
+}
+
+function TopicCard({ topic }: { topic: TopicType }) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{topic.title}</CardTitle>
+        <CardDescription>{topic.description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>{topic.prompt}</p>
+      </CardContent>
+    </Card>
   );
 }

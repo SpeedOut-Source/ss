@@ -1,9 +1,8 @@
+import { getCourseDetails } from "@/actions/ai/get-ai-course-details";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { getAILessons } from "@/actions/ai/get-ai-lessons";
-import { getChapterTopics } from "@/actions/ai/get-ai-topics";
 
 export async function POST(
   req: NextRequest,
@@ -20,10 +19,12 @@ export async function POST(
       messages: ChatCompletionMessageParam[];
     };
 
-    const quizes = await getChapterTopics({ messages });
+    // console.log("[vongCong]", messages);
 
-    if (quizes) {
-      return NextResponse.json(quizes);
+    const course = await getCourseDetails({ messages });
+
+    if (course) {
+      return NextResponse.json(course);
     }
     return new NextResponse("Lesson not found", { status: 404 });
   } catch (error) {

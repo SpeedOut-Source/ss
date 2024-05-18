@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-import { getAILessonTextContent } from "@/actions/get-ai-lesson-content";
+import { getAILessonTextContent } from "@/actions/ai/get-ai-lesson-content";
 
 export async function PATCH(
   req: Request,

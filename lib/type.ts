@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface QuizLessonType {
   question: string;
   option1: string;
@@ -12,8 +14,23 @@ export interface ContentLesson {
   content: string;
 }
 
-export interface TopicType {
-  title: string;
-  description: string;
-  prompt: string;
-}
+export const topicTypeSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  prompt: z.string(),
+});
+
+export type TopicType = z.infer<typeof topicTypeSchema>;
+
+export const aiCourseDescriptionSchema = z.object({
+  courseName: z.string(),
+  description: z.string(),
+  chapters: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+    })
+  ),
+});
+
+export type AICourseDescriptionType = z.infer<typeof aiCourseDescriptionSchema>;

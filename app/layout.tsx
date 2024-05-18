@@ -6,6 +6,7 @@ import { ToastProvider } from "@/components/providers/toaster-provider";
 import { ConfettiProvider } from "@/components/providers/confetti-provider";
 import { BotpressProvider } from "@/components/providers/botpress-provider";
 import Providers from "@/components/progress-bar-provider";
+import TanStackProviders from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-
+}) {
   return (
     <ClerkProvider>
       <html lang="en">
@@ -27,9 +27,11 @@ export default function RootLayout({
           <BotpressProvider />
         </head>
         <body className={inter.className}>
-          <ConfettiProvider />
-          <ToastProvider />
-          <Providers>{children}</Providers>
+          <TanStackProviders>
+            <ConfettiProvider />
+            <ToastProvider />
+            <Providers>{children}</Providers>
+          </TanStackProviders>
         </body>
       </html>
     </ClerkProvider>

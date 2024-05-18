@@ -2,8 +2,8 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-import { getAIText } from "@/actions/get-ai-text";
-import { getAIQuiz } from "@/actions/get-ai-quiz";
+import { getAIText } from "@/actions/ai/get-ai-text";
+import { getAIQuiz } from "@/actions/ai/get-ai-quiz";
 
 export async function PATCH(
   req: Request,

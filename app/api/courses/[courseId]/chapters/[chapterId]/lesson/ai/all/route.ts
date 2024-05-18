@@ -1,9 +1,9 @@
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 
-import { getAILessonTextContent } from "@/actions/get-ai-lesson-content";
+import { getAILessonTextContent } from "@/actions/ai/get-ai-lesson-content";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { getAILessons } from "@/actions/get-ai-lessons";
+import { getAILessons } from "@/actions/ai/get-ai-lessons";
 
 export async function POST(
   req: NextRequest,
