@@ -14,6 +14,8 @@ import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { ChapterActions } from "./_components/chapter-actions";
 import NextButton from "./_components/next-button";
 import GenerateTopic from "./content/_components/generate-topic";
+import { Chapter } from "@prisma/client";
+import TopicCard from "./content/_components/topic-card";
 
 const ChapterIdPage = async ({
   params,
@@ -126,8 +128,7 @@ const ChapterIdPage = async ({
           </div>
         </div>
 
-        <GenerateTopic params={params} chapter={chapter} />
-
+        <Topics params={params} chapter={chapter} />
         <NextButton params={params} />
 
         <hr className="my-4" />
@@ -135,5 +136,36 @@ const ChapterIdPage = async ({
     </>
   );
 };
+
+async function Topics({
+  params,
+  chapter,
+}: {
+  params: { chapterId: string; courseId: string };
+  chapter: Chapter;
+}) {
+  const topics = await db.topic.findMany({
+    where: { chapterId: params.chapterId },
+  });
+
+  if (topics.length > 0) {
+    return (
+      <div className="max-w-xl">
+        <div>
+          {topics.map((topic) => (
+            <TopicCard
+              topicId={topic.id}
+              params={params}
+              topic={topic}
+              key={topic.id}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  } else {
+    return <GenerateTopic params={params} chapter={chapter} />;
+  }
+}
 
 export default ChapterIdPage;

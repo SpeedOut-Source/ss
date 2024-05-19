@@ -1,23 +1,26 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { QuizLessonType, TopicType } from "@/lib/type";
-import { Chapter } from "@prisma/client";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { useState } from "react";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import TopicCard from "./topic-card";
+
 import LoadingButton from "@/components/ui/loading";
+import { Preview } from "@/components/preview";
+import { QuizLesson } from "@/components/content/quiz-content";
+import { Quiz } from "@prisma/client";
+import toast from "react-hot-toast";
 
 export default function GenerateContent({
   params,
   topic,
+  topicId,
 }: {
   params: { courseId: string; chapterId: string };
   topic: TopicType;
+  topicId: string;
 }) {
   const { courseId, chapterId } = params;
 
@@ -114,7 +117,7 @@ export default function GenerateContent({
   async function saveLessons() {
     const saveTopics = await axios.post(
       `/api/courses/${courseId}/chapters/${chapterId}/topic/lesson`,
-      { content, quizes }
+      { content, quizes, topicId }
     );
   }
 
@@ -123,21 +126,39 @@ export default function GenerateContent({
     onSuccess: () => {
       // Invalidate and refetch
       // queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.success("Saved");
+    },
+    onError: (e) => {
+      toast.error(e.message);
     },
   });
 
   return (
     <div className="max-w-xl">
       {/* <Button onClick={getAILessons}>Generate</Button> */}
-      <div className="">{content}</div>
+      {/* <div className="">{content}</div> */}
+      {content && <Preview value={content} />}
+      {quizes?.map((quiz, index) => (
+        <QuizLesson key={index} quiz={quiz} />
+      ))}
       <div className="flex justify-between py-2">
-        <LoadingButton
-          onClick={() => textContentM.mutate()}
-          content={content ? "Regenerate" : "Generate"}
-          loading={textContentM.isPending}
-          loadingContent={content ? "Regenerating" : "Generating"}
-        />
-        {content && (
+        {content ? (
+          <LoadingButton
+            onClick={() => quizM.mutate()}
+            content={content ? "Regenerate Quizes" : "Generate Quizes"}
+            loading={quizM.isPending}
+            loadingContent={content ? "Regenerating" : "Generating"}
+          />
+        ) : (
+          <LoadingButton
+            onClick={() => textContentM.mutate()}
+            content={content ? "Regenerate" : "Generate"}
+            loading={textContentM.isPending}
+            loadingContent={content ? "Regenerating" : "Generating"}
+          />
+        )}
+
+        {content && quizes && (
           <LoadingButton
             onClick={() => saveMutation.mutate()}
             content={"Save"}

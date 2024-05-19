@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { QuizLessonType } from "@/lib/type";
 import { Quiz } from "@prisma/client";
 import { Pencil } from "lucide-react";
 import React from "react";
 
-export function QuizLesson({ quiz }: { quiz: Quiz }) {
+export function QuizLesson({ quiz }: { quiz: QuizLessonType }) {
   const options = [quiz.option1, quiz.option2, quiz.option3, quiz.option4];
 
   return (

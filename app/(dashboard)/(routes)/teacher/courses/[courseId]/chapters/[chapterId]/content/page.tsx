@@ -21,7 +21,12 @@ export default async function page({
       <div className="max-w-xl">
         <div>
           {topics.map((topic) => (
-            <TopicCard topic={topic} key={topic.id} />
+            <TopicCard
+              topicId={topic.id}
+              topic={topic}
+              key={topic.id}
+              params={params}
+            />
           ))}
         </div>
         <div className="flex items-center gap-x-2">

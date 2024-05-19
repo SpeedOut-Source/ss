@@ -88,7 +88,7 @@ export default function GenerateTopic({
       {/* <Button onClick={getAILessons}>Generate</Button> */}
       <div className="">
         {topics?.map((topic, index) => (
-          <TopicCard key={index} topic={topic} />
+          <TopicCard params={params} key={index} topic={topic} />
         ))}
       </div>
       <div className="flex justify-between py-2">
