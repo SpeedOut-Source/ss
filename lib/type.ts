@@ -1,14 +1,25 @@
 import { z } from "zod";
 
-export interface QuizLessonType {
-  question: string;
-  option1: string;
-  option2: string;
-  option3: string;
-  option4: string;
-  explanation: string;
-  correctAnswer: number;
-}
+export const quizTypeSchema = z.object({
+  question: z.string(),
+  option1: z.string(),
+  option2: z.string(),
+  option3: z.string(),
+  option4: z.string(),
+  correctAnswer: z.number().min(1).max(4),
+  explaination: z.string(),
+});
+
+export type QuizLessonType = z.infer<typeof quizTypeSchema>;
+// {
+//   question: string;
+//   option1: string;
+//   option2: string;
+//   option3: string;
+//   option4: string;
+//   explanation: string;
+//   correctAnswer: number;
+// }
 
 export interface ContentLesson {
   content: string;

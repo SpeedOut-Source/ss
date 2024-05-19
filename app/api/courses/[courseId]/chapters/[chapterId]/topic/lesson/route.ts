@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { LessonType } from "@prisma/client";
 import { z } from "zod";
-import { topicTypeSchema } from "@/lib/type";
+import { quizTypeSchema, topicTypeSchema } from "@/lib/type";
+import { quizFormSchema } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/interface/quiz";
 
 export async function GET(
   req: Request,
@@ -23,10 +24,6 @@ export async function GET(
         userId,
       },
     });
-
-    console.log(params, "dfdlkjldkf");
-
-    return;
 
     if (!ownCourse) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -48,8 +45,12 @@ export async function POST(
   try {
     const formData = await req.json();
 
-    const topicsSchema = z.array(topicTypeSchema);
-    const data = topicsSchema.safeParse(formData);
+    const contentSchema = z.object({
+      content: z.string(),
+      quizes: z.array(quizTypeSchema),
+      topicId: z.string(),
+    });
+    const data = contentSchema.safeParse(formData);
     const { userId } = auth();
 
     if (!userId) {
@@ -67,16 +68,25 @@ export async function POST(
         return new NextResponse("Unauthorized", { status: 401 });
       }
 
-      const topics = data.data;
+      const contents = data.data;
+      const textContent = contents.content;
+      const quizzes = contents.quizes;
+      const topicId = contents.topicId;
 
-      await db.topic.createMany({
-        data: topics.map((topic, i) => ({
-          ...topic,
-          chapterId: params.chapterId,
-          Order: i,
+      await db.lesson.create({
+        data: { order: 1, textContent: textContent, topicId },
+      });
+
+      await db.lesson.createMany({
+        data: quizzes.map((quiz, i) => ({
+          order: i + 2,
+          topicId,
+          LessonType: LessonType.QUIZ,
+          quize: { create: { ...quiz } },
         })),
       });
-      return NextResponse.json("topics");
+
+      return NextResponse.json("lessons");
     }
 
     return new NextResponse("Input error", { status: 400 });

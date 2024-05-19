@@ -13,6 +13,7 @@ import { ChapterAccessForm } from "./_components/chapter-access-form";
 import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { ChapterActions } from "./_components/chapter-actions";
 import NextButton from "./_components/next-button";
+import GenerateTopic from "./content/_components/generate-topic";
 
 const ChapterIdPage = async ({
   params,
@@ -124,6 +125,8 @@ const ChapterIdPage = async ({
             />
           </div>
         </div>
+
+        <GenerateTopic params={params} chapter={chapter} />
 
         <NextButton params={params} />
 

@@ -73,13 +73,14 @@ model Chapter {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([courseId])
+  @@index([courseId, position])
 }
 
 model Topic {
-  id          String  @id @default(uuid())
+  id          String @id @default(uuid())
   title       String
-  description String?
+  description String
+  prompt      String
 
   Order Int
 
@@ -88,7 +89,7 @@ model Topic {
   chapterId String
   Chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
-  @@index([chapterId])
+  @@index([chapterId, Order])
 }
 
 model Lesson {
