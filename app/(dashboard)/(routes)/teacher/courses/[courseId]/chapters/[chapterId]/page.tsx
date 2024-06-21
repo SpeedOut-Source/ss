@@ -164,7 +164,11 @@ async function Topics({
       </div>
     );
   } else {
-    return <GenerateTopic params={params} chapter={chapter} />;
+    return (
+      <div>
+        <GenerateTopic params={params} chapter={chapter} />
+      </div>
+    );
   }
 }
 
