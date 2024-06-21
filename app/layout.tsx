@@ -7,6 +7,7 @@ import { ConfettiProvider } from "@/components/providers/confetti-provider";
 import { BotpressProvider } from "@/components/providers/botpress-provider";
 import Providers from "@/components/progress-bar-provider";
 import TanStackProviders from "./provider";
+import Provider from "./_trpc/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,11 +28,13 @@ export default function RootLayout({
           <BotpressProvider />
         </head>
         <body className={inter.className}>
-          <TanStackProviders>
-            <ConfettiProvider />
-            <ToastProvider />
-            <Providers>{children}</Providers>
-          </TanStackProviders>
+          <Provider>
+            <TanStackProviders>
+              <ConfettiProvider />
+              <ToastProvider />
+              <Providers>{children}</Providers>
+            </TanStackProviders>
+          </Provider>
         </body>
       </html>
     </ClerkProvider>
