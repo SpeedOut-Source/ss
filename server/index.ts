@@ -9,7 +9,7 @@ export const appRouter = router({
   getTodos: publicProcedure.query(async () => {
     return "vongcong";
   }),
-  getTopics: publicProcedure
+  generateTopics: publicProcedure
     .input(
       z.object({
         chapterName: z.string(),
@@ -37,6 +37,15 @@ export const appRouter = router({
       const quizes = await getChapterTopics({ messages });
       return quizes;
     }),
+
+  getTopics: publicProcedure
+    .input(z.object({ chapterId: z.string() }))
+    .query(async ({ input }) => {
+      const topics = await db.topic.findMany({
+        where: { chapterId: input.chapterId },
+      });
+      return topics;
+    }),
   saveTopics: publicProcedure
     .input(
       z.object({
@@ -55,18 +64,15 @@ export const appRouter = router({
         },
       });
 
-      if (!ownCourse) {
-        throw new Error("Unauthorized");
-      }
+      // if (!ownCourse) {
+      //   throw new Error("Unauthorized");
+      // }
 
       const topics = input.topics;
 
       return await db.topic.createMany({
         data: topics.map((topic, i) => ({
-          title: topic.title,
-          description: topic.description,
-          prompt: topic.prompt,
-          courseId,
+          ...topic,
           chapterId,
           Order: i,
         })),

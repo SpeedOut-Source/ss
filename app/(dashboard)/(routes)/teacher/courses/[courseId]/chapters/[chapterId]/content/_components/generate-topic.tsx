@@ -9,6 +9,7 @@ import { useState } from "react";
 import { trpc } from "@/app/_trpc/client";
 import { useSession } from "@clerk/nextjs";
 import TopicCard from "./topic-card";
+import toast from "react-hot-toast";
 
 export default function GenerateTopic({
   params,
@@ -25,13 +26,16 @@ export default function GenerateTopic({
 
   const [topics, setTopics] = useState<TopicType[]>();
 
-  const topicsM = trpc.getTopics.useMutation({
+  const topicsM = trpc.generateTopics.useMutation({
     onSuccess: (data, Variable) => {
       setTopics(data);
     },
   });
 
-  const saveTopicM = trpc.saveTopics.useMutation();
+  const saveTopicM = trpc.saveTopics.useMutation({
+    onSuccess: () => toast.success("saved"),
+    onError: (e) => toast.error(`${e.message}`),
+  });
 
   return (
     <div className="max-w-xl">
@@ -67,7 +71,6 @@ export default function GenerateTopic({
     </div>
   );
 }
-
 function LoadingButton({
   loading,
   content,

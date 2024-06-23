@@ -18,7 +18,7 @@ export default async function page({
 
   return (
     <div className="p-4">
-      <div className="max-w-xl">
+      <div className="">
         <div>
           {topics.map((topic) => (
             <TopicCard

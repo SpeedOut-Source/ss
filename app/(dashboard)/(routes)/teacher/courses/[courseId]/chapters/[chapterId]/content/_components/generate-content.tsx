@@ -67,7 +67,7 @@ export default function GenerateContent({
       {
         role: "system",
         content: `You are an expert in programming and instructional design. Your task is to generate quizes content of topic based on the topic descriptoin/outline for a given chapter of a programming course. \n
-           Each quiz should have  question, option1, option2, option3, option4, correctAnswer( this will be number 1 to 4), and explaination to the quiz`,
+           Each quiz should have  question, option1, option2, option3, option4, correctAnswer( this will be number 1 to 4), and explanation to the quiz`,
       },
       {
         role: "user",
@@ -80,7 +80,7 @@ export default function GenerateContent({
       {
         role: "user",
         content: `Generate the quizes with following properties  in the following json format:{"quizes": [{"title": "", "description": "", "prompt": ""}, ...]} \n
-        so that i can parse this return json as {quizes:  { question: string; option1: string; option2: string; option3: string; option4: string; correctAnswer: number; explaination: string;}[]}} `,
+        so that i can parse this return json as {quizes:  { question: string; option1: string; option2: string; option3: string; option4: string; correctAnswer: number; explanation: string;}[]}} `,
       },
     ];
     const quizzesRes = await axios.patch(

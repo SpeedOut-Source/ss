@@ -53,6 +53,8 @@ export async function POST(
     const data = contentSchema.safeParse(formData);
     const { userId } = auth();
 
+    console.log(data.error?.message, "data");
+
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -74,14 +76,19 @@ export async function POST(
       const topicId = contents.topicId;
 
       await db.lesson.create({
-        data: { order: 1, textContent: textContent, topicId },
+        data: {
+          order: 1,
+          textContent: textContent,
+          topicId,
+          type: LessonType.TEXT_CONTENT,
+        },
       });
 
       await db.lesson.createMany({
         data: quizzes.map((quiz, i) => ({
           order: i + 2,
           topicId,
-          LessonType: LessonType.QUIZ,
+          type: LessonType.QUIZ,
           quize: { create: { ...quiz } },
         })),
       });

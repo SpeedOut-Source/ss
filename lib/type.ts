@@ -7,7 +7,7 @@ export const quizTypeSchema = z.object({
   option3: z.string(),
   option4: z.string(),
   correctAnswer: z.number().min(1).max(4),
-  explaination: z.string(),
+  explanation: z.string().nullable(),
 });
 
 export type QuizLessonType = z.infer<typeof quizTypeSchema>;

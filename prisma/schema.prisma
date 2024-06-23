@@ -80,7 +80,7 @@ model Topic {
   id          String @id @default(uuid())
   title       String
   description String
-  prompt      String
+  prompt      String @db.VarChar(1000)
 
   Order Int
 
@@ -95,8 +95,8 @@ model Topic {
 model Lesson {
   id String @id @default(uuid())
 
-  type        LessonType @default(TEXT_CONTENT)
-  textContent String?
+  type        LessonType
+  textContent String?    @db.LongText
   quize       Quiz?
   order       Int
 
@@ -115,7 +115,7 @@ enum LessonType {
 }
 
 model Quiz {
-  id            String  @id
+  id            String  @id @default(uuid())
   lesson        Lesson  @relation(fields: [id], references: [id], onDelete: Cascade)
   question      String
   correctAnswer Int
