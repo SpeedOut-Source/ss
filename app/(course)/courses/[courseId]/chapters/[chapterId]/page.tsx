@@ -56,7 +56,7 @@ const ChapterIdPage = async ({
         />
       )}
       <div className="flex flex-col max-w-4xl mx-auto pb-20">
-        <div className="p-4">
+        {muxData && <div className="p-4">
           <VideoPlayer
             chapterId={params.chapterId}
             title={chapter.title}
@@ -66,7 +66,7 @@ const ChapterIdPage = async ({
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
           />
-        </div>
+        </div>}
         <div>
           <div className="p-4 flex flex-col md:flex-row items-center justify-between">
             <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
