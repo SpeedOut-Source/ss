@@ -1,8 +1,6 @@
 import { QuizLesson } from "@/components/content/quiz-content";
-import { ShowContent } from "@/components/content/text-content";
-import { db } from "@/lib/db";
-import { Course, Lesson, Quiz } from "@prisma/client";
-import React from "react";
+import { Preview } from "@/components/preview";
+import { Lesson, Quiz } from "@prisma/client";
 
 export default async function CourseContents({
   lessons,
@@ -16,7 +14,7 @@ export default async function CourseContents({
       {lessons.map((lesson, i) => {
         if (lesson.quize) return <QuizLesson key={i} quiz={lesson.quize} />;
         else if (lesson.textContent) {
-          return <ShowContent key={i} content={lesson.textContent} />;
+          return <Preview key={i} value={lesson.textContent} />; //<ShowContent key={i} content={lesson.textContent} />;
         }
       })}
     </div>
