@@ -14,7 +14,7 @@ export async function Lessons({
 }) {
   const lessons = await db.lesson.findMany({
     where: { topicId: topicId },
-    include: { quize: true },
+    include: { quiz: true },
   });
   if (lessons.length > 0)
     return <CourseContents params={params} lessons={lessons} />;
