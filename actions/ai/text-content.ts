@@ -19,9 +19,7 @@ export const getTextContentAI = async ({
     temperature: 0,
   };
 
-  const chatCompletion = await openai.chat.completions.create(input, {
-    timeout: 10000, // 10s
-  });
+  const chatCompletion = await openai.chat.completions.create(input, {});
 
   const responseMessage = chatCompletion.choices[0].message.content;
 

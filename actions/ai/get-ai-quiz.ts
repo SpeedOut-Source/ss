@@ -78,9 +78,7 @@ export const getAIQuiz = async (prompt?: string | null) => {
     temperature: 0,
   };
 
-  const chatCompletion = await openai.chat.completions.create(input, {
-    timeout: 10000, // 10s
-  });
+  const chatCompletion = await openai.chat.completions.create(input, {});
 
   const quiz = JSON.parse(
     chatCompletion.choices[0].message.function_call?.arguments!

@@ -60,7 +60,7 @@ export async function PATCH(
             order: 1,
             topicId: params.chapterId,
             type: LessonType.QUIZ,
-            quize: {
+            quiz: {
               create: {
                 correctAnswer: quizData.correctAnswer,
                 option1: quizData.option1,

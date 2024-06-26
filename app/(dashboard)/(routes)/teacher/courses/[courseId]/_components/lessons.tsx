@@ -10,19 +10,19 @@ interface LessonsProps {
 export default async function Lessons({ courseId, chapterId }: LessonsProps) {
   const lessons = await db.lesson.findMany({
     where: { topicId: "1" },
-    include: { quize: true },
+    include: { quiz: true },
   });
 
   return (
     <div>
       {lessons.map((lesson) => {
-        if (lesson.quize)
+        if (lesson.quiz)
           return (
             <LessonEdit
               key={lesson.id}
               chapterId={chapterId}
               courseId={courseId}
-              initialData={lesson.quize}
+              initialData={lesson.quiz}
             />
           );
 

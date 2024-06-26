@@ -84,13 +84,17 @@ export async function POST(
         },
       });
 
-      await db.lesson.createMany({
-        data: quizzes.map((quiz, i) => ({
-          order: i + 2,
-          topicId,
-          type: LessonType.QUIZ,
-          quize: { create: { ...quiz } },
-        })),
+      quizzes.map(async (quiz, i) => {
+        await db.lesson.create({
+          data: {
+            order: i + 2,
+            topicId,
+            type: LessonType.QUIZ,
+            quiz: {
+              create: quiz,
+            },
+          },
+        });
       });
 
       return NextResponse.json("lessons");

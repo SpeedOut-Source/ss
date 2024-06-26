@@ -6,13 +6,13 @@ export default async function CourseContents({
   lessons,
   params,
 }: {
-  lessons: (Lesson & { quize: Quiz | null })[];
+  lessons: (Lesson & { quiz: Quiz | null })[];
   params: { courseId: string; chapterId: string };
 }) {
   return (
     <div>
       {lessons.map((lesson, i) => {
-        if (lesson.quize) return <QuizLesson key={i} quiz={lesson.quize} />;
+        if (lesson.quiz) return <QuizLesson key={i} quiz={lesson.quiz} />;
         else if (lesson.textContent) {
           return <Preview key={i} value={lesson.textContent} />; //<ShowContent key={i} content={lesson.textContent} />;
         }
