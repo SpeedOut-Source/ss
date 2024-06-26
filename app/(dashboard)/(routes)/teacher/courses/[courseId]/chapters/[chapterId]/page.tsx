@@ -125,7 +125,7 @@ const ChapterIdPage = async ({
             />
           </div>
         </div>
-
+        <hr className="my-4" />
         <Topics params={params} chapter={chapter} />
         <NextButton params={params} />
 

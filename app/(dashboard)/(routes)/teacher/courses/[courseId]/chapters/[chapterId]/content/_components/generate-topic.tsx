@@ -38,9 +38,9 @@ export default function GenerateTopic({
   });
 
   return (
-    <div className="max-w-xl">
+    <div className="max-w-xl space-y-2">
       {/* <Button onClick={getAILessons}>Generate</Button> */}
-      <div className="">
+      <div className="space-y-2">
         {topics?.map((topic, index) => (
           <TopicCard params={params} key={index} topic={topic} />
         ))}
