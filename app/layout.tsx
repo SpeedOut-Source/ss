@@ -12,8 +12,8 @@ import Provider from "./_trpc/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SkillSynth",
-  description: "AI driven, Interactive personalized Education platform",
+  title: "SkillSynth - AI driven, Interactive personalized Education platform",
+  description: "SkillSynth - AI driven, Interactive personalized Education platform",
 };
 
 export default function RootLayout({
