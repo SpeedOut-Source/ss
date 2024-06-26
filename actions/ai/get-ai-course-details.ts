@@ -26,9 +26,7 @@ export const getCourseDetails = async ({
     response_format: { type: "json_object" },
   };
 
-  const chatCompletion = await openai.chat.completions.create(input, {
-    timeout: 10000, // 10s
-  });
+  const chatCompletion = await openai.chat.completions.create(input, {});
 
   const responseMessage = chatCompletion.choices[0].message.content;
 

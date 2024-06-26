@@ -10,7 +10,11 @@ export const getAIText = async (prompt?: string | null) => {
 
   const input: ChatCompletionCreateParamsNonStreaming = {
     messages: [
-      { role: "system", content: "Don't make assumptions about what values to plug into functions" },
+      {
+        role: "system",
+        content:
+          "Don't make assumptions about what values to plug into functions",
+      },
       {
         role: "system",
         content: "Give a course title based on the following user prompt.",
@@ -38,9 +42,7 @@ export const getAIText = async (prompt?: string | null) => {
     temperature: 0,
   };
 
-  const chatCompletion = await openai.chat.completions.create(input, {
-    timeout: 10000, // 10s
-  });
+  const chatCompletion = await openai.chat.completions.create(input, {});
 
   const title = JSON.parse(
     chatCompletion.choices[0].message.function_call?.arguments!
