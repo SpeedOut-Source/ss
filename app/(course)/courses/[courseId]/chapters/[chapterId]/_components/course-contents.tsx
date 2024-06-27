@@ -2,11 +2,16 @@ import { QuizLesson } from "@/components/content/quiz-content";
 import { Preview } from "@/components/preview";
 import { Lesson, Quiz } from "@prisma/client";
 
+type OmiitedType = Omit<Lesson, "createdAt" | "updatedAt">;
+
 export default async function CourseContents({
   lessons,
   params,
 }: {
-  lessons: (Lesson & { quiz: Quiz | null })[];
+  lessons: (OmiitedType & {
+    quiz: Omit<Quiz, "createdAt" | "updatedAt"> | null;
+  })[];
+
   params: { courseId: string; chapterId: string };
 }) {
   return (

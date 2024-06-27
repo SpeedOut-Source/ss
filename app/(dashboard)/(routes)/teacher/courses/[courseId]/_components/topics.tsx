@@ -18,14 +18,16 @@ export function Topics({
       return (
         <div className="max-w-xl">
           <div>
-            {topics.data.map((topic) => (
-              <TopicCard
-                topicId={topic.id}
-                params={params}
-                topic={topic}
-                key={topic.id}
-              />
-            ))}
+            {topics.data.map((topic) => {
+              return (
+                <TopicCard
+                  topicId={topic.id}
+                  params={params}
+                  topic={topic}
+                  key={topic.id}
+                />
+              );
+            })}
           </div>
         </div>
       );
