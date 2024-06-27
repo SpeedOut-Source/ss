@@ -40,7 +40,7 @@ const ChapterIdPage = async ({
     return redirect("/");
   }
 
-  const requiredFields = [chapter.title, chapter.description, chapter.videoUrl];
+  const requiredFields = [chapter.title, chapter.description];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
@@ -125,7 +125,7 @@ const ChapterIdPage = async ({
             />
           </div>
         </div>
-
+        <hr className="my-4" />
         <Topics params={params} chapter={chapter} />
         <NextButton params={params} />
 
