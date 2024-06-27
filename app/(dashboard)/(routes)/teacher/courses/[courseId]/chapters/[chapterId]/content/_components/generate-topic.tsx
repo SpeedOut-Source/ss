@@ -33,7 +33,7 @@ export default function GenerateTopic({
   });
 
   const saveTopicM = trpc.saveTopics.useMutation({
-    onSuccess: () => toast.success("saved"),
+    onSuccess: () => toast.success("saved successfully"),
     onError: (e) => toast.error(`${e.message}`),
   });
 

@@ -136,7 +136,7 @@ export default function GenerateContent({
     onSuccess: () => {
       // Invalidate and refetch
       // queryClient.invalidateQueries({ queryKey: ["todos"] });
-      toast.success("Saved");
+      toast.success("Saved successfully");
     },
     onError: (e) => {
       toast.error(e.message);

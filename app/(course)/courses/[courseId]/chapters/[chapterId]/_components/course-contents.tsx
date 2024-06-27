@@ -4,7 +4,7 @@ import { Lesson, Quiz } from "@prisma/client";
 
 type OmiitedType = Omit<Lesson, "createdAt" | "updatedAt">;
 
-export default async function CourseContents({
+export default function CourseContents({
   lessons,
   params,
 }: {
