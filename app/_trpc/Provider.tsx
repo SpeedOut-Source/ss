@@ -6,9 +6,10 @@ import { trpc } from "./client";
 
 // import { trpc } from "./client";
 
-const url = process.env.production
-  ? "https://production.d217dozgmbyzxw.amplifyapp.com/api/trpc"
-  : "http://localhost:3000/api/trpc";
+const url =
+  process.env.NODE_ENV === "production"
+    ? "https://production.d217dozgmbyzxw.amplifyapp.com/api/trpc"
+    : "http://localhost:3000/api/trpc";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({}));
