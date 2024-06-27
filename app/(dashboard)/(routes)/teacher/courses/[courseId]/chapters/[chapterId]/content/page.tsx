@@ -29,12 +29,12 @@ export default async function page({
             />
           ))}
         </div>
-        <div className="flex items-center gap-x-2">
+        {/* <div className="flex items-center gap-x-2">
           <IconBadge icon={LayoutDashboard} />
           <h2 className="text-xl">Add your chapter contents</h2>
         </div>
         <Lessons courseId={params.courseId} chapterId={params.chapterId} />
-        <AddLesson chapterId={params.chapterId} courseId={params.courseId} />
+        <AddLesson chapterId={params.chapterId} courseId={params.courseId} /> */}
       </div>
     </div>
   );
