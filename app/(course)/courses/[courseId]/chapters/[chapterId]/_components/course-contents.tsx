@@ -14,13 +14,14 @@ export default function CourseContents({
 
   params: { courseId: string; chapterId: string };
 }) {
+  const quizes = lessons.filter((lesson) => lesson.quiz);
+  const lesson = lessons.find((lesson) => lesson.textContent);
+
   return (
     <div>
-      {lessons.map((lesson, i) => {
+      {lesson && <Preview value={lesson.textContent ?? ""} />}
+      {quizes.map((lesson, i) => {
         if (lesson.quiz) return <QuizLesson key={i} quiz={lesson.quiz} />;
-        else if (lesson.textContent) {
-          return <Preview key={i} value={lesson.textContent} />; //<ShowContent key={i} content={lesson.textContent} />;
-        }
       })}
     </div>
   );

@@ -8,10 +8,12 @@ export function Lessons({
   params,
   topic,
   topicId,
+  show,
 }: {
   params: { courseId: string; chapterId: string };
   topicId: string;
   topic: TopicType;
+  show?: boolean;
 }) {
   const lessonsQ = trpc.getLessons.useQuery({ topicId });
   if (lessonsQ.isLoading) return <div>Loading...</div>;
@@ -21,7 +23,7 @@ export function Lessons({
   if (lessons)
     if (lessons.length > 0)
       return <CourseContents params={params} lessons={lessons} />;
-    else
+    else if (lessons.length === 0 && !show)
       return (
         <GenerateContent topicId={topicId} params={params} topic={topic} />
       );
