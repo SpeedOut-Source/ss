@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 
 export default function NextButton({
   params,
@@ -14,7 +13,7 @@ export default function NextButton({
 }) {
   const router = useRouter();
   const onClick = () => {
-    toast.success("clicked");
+    // toast.success("clicked");
     router.push(
       `/teacher/courses/${params.courseId}/chapters/${params.chapterId}/content`
     );
