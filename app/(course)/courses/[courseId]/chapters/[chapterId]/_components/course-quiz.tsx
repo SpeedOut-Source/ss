@@ -11,7 +11,7 @@ export default function CourseQuiz({
   lessons,
 }: {
   lessons: (OmittedType & {
-    quiz: Omit<Quiz, "createdAt" | "updatedAt">;
+    quiz: Omit<Quiz, "createdAt" | "updatedAt"> | null;
   })[];
 }) {
   const [showAns, setShowAns] = useState(false);
