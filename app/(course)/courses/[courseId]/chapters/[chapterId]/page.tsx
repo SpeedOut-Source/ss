@@ -11,6 +11,7 @@ import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
 import CourseContents from "./_components/course-contents";
+import TopicCard from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/content/_components/topic-card";
 
 const ChapterIdPage = async ({
   params,
@@ -56,17 +57,19 @@ const ChapterIdPage = async ({
         />
       )}
       <div className="flex flex-col max-w-4xl mx-auto pb-20">
-        {muxData && <div className="p-4">
-          <VideoPlayer
-            chapterId={params.chapterId}
-            title={chapter.title}
-            courseId={params.courseId}
-            nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!}
-            isLocked={isLocked}
-            completeOnEnd={completeOnEnd}
-          />
-        </div>}
+        {muxData && (
+          <div className="p-4">
+            <VideoPlayer
+              chapterId={params.chapterId}
+              title={chapter.title}
+              courseId={params.courseId}
+              nextChapterId={nextChapter?.id}
+              playbackId={muxData?.playbackId!}
+              isLocked={isLocked}
+              completeOnEnd={completeOnEnd}
+            />
+          </div>
+        )}
         <div>
           <div className="p-4 flex flex-col md:flex-row items-center justify-between">
             <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
@@ -87,6 +90,23 @@ const ChapterIdPage = async ({
           <Separator />
           <div>
             <Preview value={chapter.description!} />
+          </div>
+          <div>
+            <div className="max-w-xl">
+              <div>
+                {chapter.topics.map((topic) => {
+                  return (
+                    <TopicCard
+                      show={true}
+                      topicId={topic.id}
+                      params={params}
+                      topic={topic}
+                      key={topic.id}
+                    />
+                  );
+                })}
+              </div>
+            </div>
           </div>
           {!!attachments.length && (
             <>

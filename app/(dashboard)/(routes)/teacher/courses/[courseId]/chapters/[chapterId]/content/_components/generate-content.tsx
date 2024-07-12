@@ -1,17 +1,17 @@
 "use client";
 
-import { QuizLessonType, TopicType } from "@/lib/type";
+import { QuizLessonType, TopicType, quizTypeSchema } from "@/lib/type";
 import axios from "axios";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { useState } from "react";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import LoadingButton from "@/components/ui/loading";
-import { Preview } from "@/components/preview";
 import { QuizLesson } from "@/components/content/quiz-content";
-import { Quiz } from "@prisma/client";
+import { Preview } from "@/components/preview";
+import LoadingButton from "@/components/ui/loading";
 import toast from "react-hot-toast";
+import { z } from "zod";
 
 export default function GenerateContent({
   params,
@@ -79,7 +79,7 @@ export default function GenerateContent({
       },
       {
         role: "user",
-        content: `Generate the quizes with following properties  in the following json format:{"quizes": [{"title": "", "description": "", "prompt": ""}, ...]} \n
+        content: `Generate the quizes with following properties  in the following json format:{"quizes": [{"question": "", "option1": "", "option2": ""}, ...]} \n
         so that i can parse this return json as {quizes:  { question: string; option1: string; option2: string; option3: string; option4: string; correctAnswer: number; explanation: string;}[]}} `,
       },
     ];
@@ -90,8 +90,15 @@ export default function GenerateContent({
       }
     );
 
-    const quizzes = quizzesRes.data as QuizLessonType[];
-    return quizzes;
+    const data = z.array(quizTypeSchema).safeParse(quizzesRes.data);
+    if (data.success) {
+      const quizzes = data.data;
+      return quizzes;
+    } else {
+      // toast.error("Error in quiz generation");
+      throw new Error("Error in quiz generation");
+    }
+
     // setTopics(topics);
     // console.log(topicsRes);
   }
@@ -112,6 +119,9 @@ export default function GenerateContent({
     onSuccess: (quizzes) => {
       setQuizes(quizzes);
     },
+    onError: (e) => {
+      toast.error(e.message);
+    },
   });
 
   async function saveLessons() {
@@ -126,7 +136,7 @@ export default function GenerateContent({
     onSuccess: () => {
       // Invalidate and refetch
       // queryClient.invalidateQueries({ queryKey: ["todos"] });
-      toast.success("Saved");
+      toast.success("Saved successfully");
     },
     onError: (e) => {
       toast.error(e.message);

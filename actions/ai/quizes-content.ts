@@ -14,6 +14,7 @@ export const getQuizContentAI = async ({
 }: {
   messages: ChatCompletionMessageParam[];
 }) => {
+  console.log("messages", messages);
   const input: ChatCompletionCreateParamsNonStreaming = {
     messages: messages,
     model: "gpt-3.5-turbo-1106",
@@ -28,7 +29,7 @@ export const getQuizContentAI = async ({
     const res = JSON.parse(responseMessage) as {
       quizes: QuizLessonType[];
     };
-    // console.log(res);
+    console.log(res);
     return res.quizes;
   }
 };

@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -10,13 +11,14 @@ import { Lessons } from "../../_components/lessons";
 
 export default function TopicCard({
   topicId,
-
+  show,
   params,
   topic,
 }: {
   topicId?: string;
   topic: TopicType;
   params: { courseId: string; chapterId: string };
+  show?: boolean;
 }) {
   return (
     <Card>
@@ -26,7 +28,14 @@ export default function TopicCard({
       </CardHeader>
       <CardContent>
         <p>{topic.prompt}</p>
-        {topicId && <Lessons params={params} topic={topic} topicId={topicId} />}
+        {topicId && (
+          <Lessons
+            params={params}
+            show={show}
+            topic={topic}
+            topicId={topicId}
+          />
+        )}
       </CardContent>
     </Card>
   );

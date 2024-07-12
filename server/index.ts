@@ -78,6 +78,17 @@ export const appRouter = router({
         })),
       });
     }),
+
+  getLessons: publicProcedure
+    .input(z.object({ topicId: z.string() }))
+    .query(async ({ input }) => {
+      const { topicId } = input;
+      const lessons = await db.lesson.findMany({
+        where: { topicId: topicId },
+        include: { quiz: true },
+      });
+      return lessons;
+    }),
 });
 
 export type AppRouter = typeof appRouter;
