@@ -12,6 +12,7 @@ import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
 import CourseContents from "./_components/course-contents";
 import TopicCard from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/content/_components/topic-card";
+import CoursePlayer from "./_components/course-player";
 
 const ChapterIdPage = async ({
   params,
@@ -92,8 +93,9 @@ const ChapterIdPage = async ({
             <Preview value={chapter.description!} />
           </div>
           <div>
-            <div className="max-w-xl">
-              <div>
+            <div className="w-auto">
+              <CoursePlayer topics={chapter.topics} />
+              {/* <div>
                 {chapter.topics.map((topic) => {
                   return (
                     <TopicCard
@@ -105,7 +107,7 @@ const ChapterIdPage = async ({
                     />
                   );
                 })}
-              </div>
+              </div> */}
             </div>
           </div>
           {!!attachments.length && (
