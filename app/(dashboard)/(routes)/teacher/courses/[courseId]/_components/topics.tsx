@@ -38,4 +38,10 @@ export function Topics({
         </div>
       );
     }
+  else
+    return (
+      <div>
+        <GenerateTopic params={params} chapter={chapter} />
+      </div>
+    );
 }
